@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diceumium</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-theme="dark">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <header class="topbar">
+      <div>
+        <h1>🎲 Diceumium</h1>
+        <p class="subtitle">Rolagem bonita, party em tempo real e controle total da sessão.</p>
+      </div>
+      <button id="themeToggle" class="ghost-btn">Alternar claro/escuro</button>
+    </header>
+
+    <main class="layout">
+      <section class="card party-card">
+        <h2>Party</h2>
+        <div class="row">
+          <input id="playerName" placeholder="Seu nome" />
+          <input id="partyCode" placeholder="Código da party" />
+        </div>
+        <div class="row">
+          <button id="createParty">Criar party (mestre)</button>
+          <button id="joinParty" class="secondary">Entrar</button>
+        </div>
+        <p id="partyStatus">Você ainda não está em uma party.</p>
+        <p class="hint">Convide amigos compartilhando o código da party.</p>
+        <div id="members" class="member-box"></div>
+      </section>
+
+      <section class="card roll-card">
+        <h2>Rolagem</h2>
+        <div class="row wrap">
+          <label>
+            Modo:
+            <select id="rollMode">
+              <option value="normal">Normal</option>
+              <option value="advantage">Vantagem (2d, pega maior)</option>
+              <option value="disadvantage">Desvantagem (2d, pega menor)</option>
+            </select>
+          </label>
+          <label>
+            Bônus:
+            <input id="bonusValue" type="number" value="0" />
+          </label>
+        </div>
+
+        <div class="dice-grid" id="diceGrid"></div>
+        <div id="diceAnimation" class="dice-anim">🎲</div>
+        <div class="row wrap">
+          <label>
+            Visibilidade:
+            <select id="visibility">
+              <option value="public">Pública</option>
+              <option value="hidden">Oculta (só você vê)</option>
+              <option value="master">Só mestre + você</option>
+            </select>
+          </label>
+          <input id="rollNote" placeholder="Anotação opcional" />
+        </div>
+      </section>
+
+      <section class="card custom-card">
+        <h2>Customização</h2>
+        <div class="row wrap">
+          <label>Cor do dado <input type="color" id="diceColor" value="#a855f7" /></label>
+          <label>
+            Estilo da animação
+            <select id="animStyle">
+              <option value="spin">Giro</option>
+              <option value="bounce">Queda + quique</option>
+              <option value="shake">Treme</option>
+            </select>
+          </label>
+          <label><input type="checkbox" id="critFx" checked /> Efeito crítico</label>
+        </div>
+      </section>
+
+      <section class="card log-card">
+        <h2>Log de rolagens</h2>
+        <ul id="log"></ul>
+      </section>
+    </main>
+
+    <aside id="cheatPanel" class="cheat hidden">
+      <h3>🕵️ Cheat mode</h3>
+      <p>Pressione * para abrir/fechar.</p>
+      <label>Forçar próximo resultado: <input id="forcedValue" type="number" min="1" /></label>
+      <button id="clearForced">Limpar</button>
+    </aside>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
